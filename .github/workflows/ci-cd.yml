@@ -1,47 +1,33 @@
-name: CI/CD Pipeline
+name: React CI/CD
 
 on:
   push:
     branches:
-      - main  
+      - main
   pull_request:
     branches:
       - main
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      
-      - name: Setup Python (if python project)
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
 
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
+    - name: Install dependencies
+      run: npm install
 
-      - name: Run tests
-        run: |
-          
-          pytest
+    - name: Run tests
+      run: npm test -- --watchAll=false
 
-  deploy:
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    - name: Build project
+      run: npm run build
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      
-      - name: Deploy to server
-        run: |
-          echo "Deploy your app here"
-          # ex: ssh commands or deploy script
+ 
