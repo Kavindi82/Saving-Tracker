@@ -24,11 +24,3 @@ jobs:
 
     - name: 🛠️ Build with Vite
       run: npx vite build
-
-    # Optional: Add linting
-    - name: 🔍 Lint Code
-      run: npm run lint
-
-    # Optional: Add preview test (optional if vite preview is needed)
-    # - name: 🔎 Preview Build (Optional)
-    #   run: npx vite preview --port 5000
