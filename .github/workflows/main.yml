@@ -1,0 +1,5 @@
+- name: Fix vite permissions
+  run: chmod +x node_modules/.bin/vite
+
+- name: Build project
+  run: npm run build
